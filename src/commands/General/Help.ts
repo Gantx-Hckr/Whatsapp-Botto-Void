@@ -10,7 +10,7 @@ export default class Command extends BaseCommand {
             description: 'Displays the help menu or shows the info of the command provided',
             category: 'general',
             usage: `${client.config.prefix}help (command_name)`,
-            dm: true,
+            dm: false,
             aliases: ['h']
         })
     }
@@ -29,30 +29,65 @@ export default class Command extends BaseCommand {
                     categories[info.config.category].push(info)
                 }
             }
-            let text = `🎫 *${this.client.config.name} Command List* 🎫\n\n`
-            const sortedKeys = Object.keys(categories).sort()
-            for (const key of sortedKeys)
-                text += `${this.emojis[sortedKeys.indexOf(key)]} *${this.client.util.capitalize(
-                    key
-                )}*\n❐ \`\`\`${categories[key].map((command) => command.config?.command).join(', ')}\`\`\`\n\n`
-            return void M.reply(
-                `${text} 🗃️ *Note: Use ${this.client.config.prefix}help <command_name> to view the command info*`
-            )
-        }
-        const key = parsedArgs.joined.toLowerCase()
-        const command = this.handler.commands.get(key) || this.handler.aliases.get(key)
-        if (!command) return void M.reply(`No Command of Alias Found | "${key}"`)
-        const state = await this.client.DB.disabledcommands.findOne({ command: command.config.command })
-        M.reply(
-            `🎫 *Command:* ${command.config?.command}\n🎗️ *Status:* ${
-                state ? 'Disabled' : 'Available'
-            }\n🀄 *Category:* ${command.config?.category || ''}${
-                command.config.aliases ? `\n🍥 *Aliases:* ${command.config.aliases.join(', ')}` : ''
-            }\n🃏 *Group Only:* ${!command.config.dm ?? 'true'}\n🎀 *Usage:* ${
-                command.config?.usage || ''
-            }\n\n🔖 *Description:* ${command.config?.description || ''}`
-        )
-    }
-
-    emojis = ['🌀', '🎴', '🔮', '👑', '⚙️', '🍀']
-}
+            let text = `🎫 *╔══════════════
+  ✥▬ *❄️_Ayanoukoji_❄️* ▬✥
+  👋️ Konnichiwa!, *I am Ayanoukoji*
+  ╭────┈
+  ❏ *Owner: Gantx_Hckr*
+  ❏ *Contact: https://wa.me/2663715606285*
+  ❏ *Github:  
+  ───────╯
+  
+  🌟️ *𝗖𝗢𝗠𝗠𝗔𝗡𝗗 𝗟𝗜𝗦𝗧* 🌟️
+  
+  🎴✥▬ *General-Commands* ▬✥
+  ╰─↝
+   〽 *${client._config.prefix}help*
+   〽 *${client._config.prefix}admins*
+   〽 *${client._config.prefix}everyone*
+   〽 *${client._config.prefix}profile*
+   〽 *${client._config.prefix}xp*
+   〽 *${client._config.prefix}delete*
+   〽 *${client._config.prefix}owner*
+    ╰─────────────────┈⁂
+    
+   🎴✥▬ *Media-Commands* ▬✥
+   ╰─↝
+   〽 *${client._config.prefix}yts [query]*
+   〽 *${client._config.prefix}yta [link]*
+   〽 *${client._config.prefix}ytv [link]*
+   〽 *${client._config.prefix}lyrics [query]*
+   〽 *${client._config.prefix}xspotify [link]*
+   〽 *${client._config.prefix}play [query]*
+   ╰─────────────────┈⁂
+   
+   🎴✥▬ *Admin-Commands* ▬✥
+   ╰─↝
+   〽 *${client._config.prefix}act mod*
+   〽 *${client._config.prefix}act events*
+   〽 *${client._config.prefix}act safe*
+   〽 *${client._config.prefix}act nsfw*
+   〽 *${client._config.prefix}purge*
+   〽 *${client._config.prefix}promote [@user]*
+   〽 *${client._config.prefix}demote [@user]*
+   〽 *${client._config.prefix}remove [@user]*
+   ╰─────────────────┈⁂
+   
+   🎴✥▬ *Other-Commands* ▬✥
+   ╰─↝
+   〽 *${client._config.prefix}chess*
+   〽 *${client._config.prefix}trigger*
+   〽 *${client._config.prefix}subred* 
+   〽 *${client._config.prefix}sticker [tag a pic]*
+   〽 *${client._config.prefix}blur [tag a pic]*
+   ╰─────────────────┈⁂ 
+   
+   🔰 *Credits* 🔰
+   ❏ *Ban Sensei
+   ❏ *Simp Freakin" Sama*
+   
+   🗃️ *Note: Use ${this.client.config.prefix}help <command_name> to view the command info*
+   }
+   }
+    
+   
