@@ -35,7 +35,7 @@ export default class Command extends BaseCommand {
   ╭────┈
   ❏ *Owner: Gantx_Hckr*
   ❏ *Contact: https://wa.me/2663715606285*
-  ❏ *Github:  
+  ❏ *Github:  https://github.com/Gantx-Hckr/4nonym0us* 
   ───────╯
   
   🌟️ *𝗖𝗢𝗠𝗠𝗔𝗡𝗗 𝗟𝗜𝗦𝗧* 🌟️
@@ -84,10 +84,38 @@ export default class Command extends BaseCommand {
    
    🔰 *Credits* 🔰
    ❏ *Ban Sensei
-   ❏ *Simp Freakin" Sama*
-   
-   🗃️ *Note: Use ${this.client.config.prefix}help <command_name> to view the command info*
-   }
-   }
+   ❏ *Simp Freakin" Sama*`\n\n`
+            const keys = Object.keys(categories)
+            for (const key of keys)
+                text += `${this.emojis[keys.indexOf(key)]} *${this.client.util.capitalize(key)}*\n❐ \`\`\`${categories[
+                    key
+                ]
+                    .map((command) => command.config?.command)
+                    .join(', ')}\`\`\`\n\n`
+                
+            return void M.reply(
+                `${text} 🗃️ *Note: Use ${this.client.config.prefix}help <command_name> to view the command info*`
+            )
+        }
+        const key = parsedArgs.joined.toLowerCase()
+        const command = this.handler.commands.get(key) || this.handler.aliases.get(key)
+        if (!command) return void M.reply(`No Command of Alias Found | "${key}"`)
+        const state = await this.client.DB.disabledcommands.findOne({ command: command.config.command })
+        M.reply(
+            `🎫 *Command:* ${this.client.util.capitalize(command.config?.command)}\n🎗️ *Status:* ${
+                state ? 'Disabled' : 'Available'
+            }\n🀄 *Category:* ${this.client.util.capitalize(command.config?.category || '')}${
+                command.config.aliases
+                    ? `\n🍥 *Aliases:* ${command.config.aliases.map(this.client.util.capitalize).join(', ')}`
+                    : ''
+            }\n🃏 *Group Only:* ${this.client.util.capitalize(
+                JSON.stringify(!command.config.dm ?? true)
+            )}\n🎀 *Usage:* ${command.config?.usage || ''}\n\n🔖 *Description:* ${command.config?.description || ''}`
+        )
+    }
+
+    emojis = ['🌀', '🎴', '🔮', '👑', '🎈', '⚙️', '🍀']
+}
+© 2021 GitHub, Inc.
     
    
